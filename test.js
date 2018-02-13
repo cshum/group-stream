@@ -44,6 +44,30 @@ test('group by custom key', function (t) {
   }))
 })
 
+test('group with custom format and custom key', function (t) {
+  from.obj([
+    {id: 1, v: 'a'},
+    {id: 1, v: 'b'},
+    {id: 2, v: 'a'},
+    {id: 3, v: 'b'},
+    {id: 3, v: 'd'}
+  ])
+  .pipe(group(function (data) {
+    return data.id
+  }, function (data) {
+    return data.v
+  }))
+  .pipe(callback.obj(function (err, data) {
+    t.notOk(err)
+    t.deepEqual(data, [
+      {key: 1, value: [ 'a', 'b' ]},
+      {key: 2, value: [ 'a' ]},
+      {key: 3, value: [ 'b', 'd' ]}
+    ])
+    t.end()
+  }))
+})
+
 test('merge sort and group by custom key', function (t) {
   function toKey (data) {
     return data.id

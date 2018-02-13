@@ -4,9 +4,16 @@ function defaultKey (val) {
   return val.key || val
 }
 
-module.exports = function group (toKey) {
+function identity (val) {
+  return val
+}
+
+module.exports = function group (toKey, format) {
   if (typeof toKey !== 'function') {
     toKey = defaultKey
+  }
+  if (typeof format !== 'function') {
+    format = identity
   }
   var curr, value
   return new Transform({
@@ -18,7 +25,7 @@ module.exports = function group (toKey) {
         value = []
         curr = next
       }
-      value.push(data)
+      value.push(format(data))
       cb()
     },
     flush: function (cb) {
