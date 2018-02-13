@@ -3,9 +3,7 @@
   "version": "3.0.0",
   "description": "Group a sorted stream by key",
   "author": "Adrian C Shum <adrian@cshum.com> (https://github.com/cshum)",
-  "dependencies": {
-    "through2": "^2.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "callback-stream": "^1.1.0",
     "from2": "^2.1.0",
